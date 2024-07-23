@@ -18,6 +18,7 @@ class ConnectionStepActivity : AppCompatActivity() {
 
     private fun setupSliderVideo() {
         stepSliderVideoAdapter = StepSliderVideoAdapter(this, ExamData.steps)
+        binding.sliderVideo.offscreenPageLimit = 1
         binding.sliderVideo.adapter = stepSliderVideoAdapter
         binding.dotsIndicator.attachTo(binding.sliderVideo)
     }

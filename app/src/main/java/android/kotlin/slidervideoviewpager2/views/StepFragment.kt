@@ -18,6 +18,7 @@ class StepFragment : Fragment() {
     private val binding by lazy { FragmentStepBinding.inflate(layoutInflater) }
     private var player: Player? = null
     private var step: Step? = null
+    private var isFirstTimePlay: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,6 @@ class StepFragment : Fragment() {
         val mediaItem = MediaItem.fromUri(step?.videoUrl ?: "")
         player?.setMediaItem(mediaItem)
         player?.prepare()
-        player?.play()
         binding.buttonPlay.visibility = View.GONE
     }
 
@@ -90,6 +90,14 @@ class StepFragment : Fragment() {
         super.onDestroy()
         player?.release()
         player = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isFirstTimePlay) {
+            player?.play()
+            isFirstTimePlay = false
+        }
     }
 
     companion object {
